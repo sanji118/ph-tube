@@ -61,6 +61,7 @@ const displayVideos = (videos) =>{
                 <div>${video.others.views}</div>
             </div>
         </div>
+        <button onclick="loadDetails()" class="btn bg-purple-400">View Details</button>
      `
 
      document.getElementById('video-container').append(card);
@@ -74,9 +75,9 @@ const loadCategoryVideos = (id) => {
     fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
         .then(res => res.json())
         .then(data => {
-            //reActivateClass();
-            //const activeBtn = document.getElementById(`btn-${id}`);
-            //activeBtn.classList.add('active');
+            reActivateClass();
+            const activeBtn = document.getElementById(`btn-${id}`);
+            activeBtn.classList.add('red');
             displayVideos(data.category);
         })
         .catch(error => console.log(error));
