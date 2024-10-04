@@ -8,7 +8,7 @@ const loadCategories = () => {
 };
 
 //create displayCategories
-const displayCategories = (categories) =>{
+const displayCategories = (categories) => {
     categories.forEach((item) => {
         //create button
         const buttonContainer = document.createElement('div');
@@ -17,15 +17,17 @@ const displayCategories = (categories) =>{
         <button id="btn-${item.category_id}"  onclick="loadCategoryVideos(${item.category_id})" class="btn category-btn">${item.category}</button>
         `;
         document.getElementById('categories-container').append(buttonContainer);
-    })
-}
+    }    
+    
+)}
+
 
 loadCategories();
 
 /**videos creating */
 
-const loadVideos = () =>{
-    fetch('https://openapi.programming-hero.com/api/phero-tube/videos')
+const loadVideos = (searchText = "") =>{
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`)
     .then(res => res.json())
     .then(data => displayVideos(data.videos))
     .catch(err => console.log(err))
@@ -38,7 +40,7 @@ const displayVideos = (videos) =>{
         document.getElementById('video-container').innerHTML = 'no content';
     }
     videos.forEach((video) => {
-    console.log(video);
+    
     const card = document.createElement('div');
     card.classList = 'card card-compact'
     card.innerHTML = `
@@ -61,7 +63,12 @@ const displayVideos = (videos) =>{
                 <div>${video.others.views}</div>
             </div>
         </div>
-        <button onclick="loadDetails()" class="btn bg-purple-400">View Details</button>
+        </div>
+        <p> <button  onclick="loadDetails('${
+          video.video_id
+        }')" class="btn btn-sm btn-error">details</button> </p>
+        </div>
+    </div>
      `
 
      document.getElementById('video-container').append(card);
@@ -82,3 +89,22 @@ const loadCategoryVideos = (id) => {
         })
         .catch(error => console.log(error));
 }
+const loadDetails = async (videoId) =>{
+    console.log(videoId);
+    const url = `https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`;
+    const res = await fetch(url)
+    const data = await res.json();
+    displayDetails(data.video);
+}
+
+const displayDetails = (video) =>{
+    console.log(video);
+    const detailContainer = document.getElementById('modal-content');
+    detailContainer.innerHTML = `
+        <img src=${video.thumbnail} />
+        <p>${video.description}</p>
+    `;
+    document.getElementById('customModal').showModal();
+
+}
+

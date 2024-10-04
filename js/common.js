@@ -15,21 +15,3 @@ const reActivateClass = () => {
     }
 }
 
-const loadDetails = async (videoId) =>{
-    console.log(videoId);
-    const url = `https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`;
-    const res = await fetch(url)
-    const data = await res.json();
-    displayDetails(data.video);
-}
-
-const displayDetails = (video) =>{
-    console.log(video);
-    const detailContainer = document.getElementById('modal-content');
-    detailContainer.innerHTML = `
-    <img src=${video.thumbnail} />
-   <p>${video.description}</p>
-   `;
-    document.getElementById('customModal').showModal();
-
-}
