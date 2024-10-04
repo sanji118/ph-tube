@@ -35,20 +35,20 @@ const displayVideos = (videos) =>{
     const card = document.createElement('div');
     card.classList = 'card card-compact'
     card.innerHTML = `
-        <figure class="px-10 pt-10">
-            <img
+        <figure class="h-[200px] relative">
+            <img class = "w-full h-full object-cover rounded-sm"
             src= ${video.thumbnail}
-            alt="Shoes"
-            class="rounded-xl" />
+            alt="Shoes"/>
         </figure>
-        <div class="card-body items-center text-center">
-            <h2 class="card-title">${video.title}</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <p>${video.others}</p>
+        <div class="py-2 flex gap-2">
+            <div class="grid-span"><img src="${video.authors[0].profile_picture}" class="w-10 h-10 rounded-full object-cover" ></div>
+            <div >${video.title}</div>
+            <div>${video.authors[0].profile_name}</div>
+            <div>${video.others.views}</div>
         </div>
      `
 
-     document.getElementById('video-container').append(card)
+     document.getElementById('video-container').append(card);
     })
 }
 
