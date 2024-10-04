@@ -31,7 +31,24 @@ const loadVideos = () =>{
 
 const displayVideos = (videos) =>{
     videos.forEach((video) => {
-        console.log(video);
+    console.log(video);
+    const card = document.createElement('div');
+    card.classList = 'card card-compact'
+    card.innerHTML = `
+        <figure class="px-10 pt-10">
+            <img
+            src= ${video.thumbnail}
+            alt="Shoes"
+            class="rounded-xl" />
+        </figure>
+        <div class="card-body items-center text-center">
+            <h2 class="card-title">${video.title}</h2>
+            <p>If a dog chews shoes whose shoes does he choose?</p>
+            <p>${video.others}</p>
+        </div>
+     `
+
+     document.getElementById('video-container').append(card)
     })
 }
 
